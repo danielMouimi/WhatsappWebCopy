@@ -10,7 +10,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: "https://whatsappwebcopy-1.onrender.com",  //  
-        methods: ["GET", "POST"]
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
