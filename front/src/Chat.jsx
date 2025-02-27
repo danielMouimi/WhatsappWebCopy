@@ -3,7 +3,10 @@ import { io } from "socket.io-client";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Chat.css"; // Importa la hoja de estilos
 
-const socket = io("https://whatsappwebcopy-1.onrender.com");
+const socket = io("https://whatsappwebcopy-1.onrender.com",  {
+  transports: ["websocket", "polling"], 
+  withCredentials: true
+});
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
