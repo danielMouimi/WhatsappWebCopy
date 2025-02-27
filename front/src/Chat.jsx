@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./Chat.css"; // Importa la hoja de estilos
 
 const socket = io(
-  process.env.NODE_ENV === "production" ? "https://nodeprojectqueapp.onrender.com" : "http://localhost:3000"
+  process.env.NODE_ENV === "production" ? "https://whatsappwebcopy-1.onrender.com" : "http://localhost:3000"
 );
 
 export default function Chat() {
