@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 
 import Chat from './Chat';
-import { Login } from './Login';
+import Login from './Login';
 
 
 import { Routes, Route, BrowserRouter, Link } from "react-router-dom";
@@ -11,21 +11,7 @@ import { Routes, Route, BrowserRouter, Link } from "react-router-dom";
 
 
 
-
-// import { auth } from './firebase';
-// import { onAuthStateChanged } from 'firebase/auth';
-import './index.css';
-
-
 function App() {
-
-  // const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-  //   });
-  // },[])
 
 
   return (
@@ -52,6 +38,7 @@ function App() {
         <Routes>
 
           <Route path='/' element={<Login/>}></Route>
+          <Route path='/chat' element={<Chat/>}/>
           {/* <Route path='/login' element={<Login></Login>}/> */}
 {/*           
           <Route element={<RutasPrivadas></RutasPrivadas>}>

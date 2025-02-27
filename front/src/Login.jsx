@@ -2,52 +2,56 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const avatars = [
-  "/avatars/avatar1.png",
-  "/avatars/avatar2.png",
-  "/avatars/avatar3.png",
-  "/avatars/avatar4.png",
+  "https://i.pravatar.cc/100?img=1",
+  "https://i.pravatar.cc/100?img=2",
+  "https://i.pravatar.cc/100?img=3",
 ];
 
-export function Login({ setUser }) {
+export default function Login({ onLogin }) {
   const [name, setName] = useState("");
-  const [status, setStatus] = useState("Disponible");
+  const [status, setStatus] = useState("");
   const [avatar, setAvatar] = useState(avatars[0]);
   const navigate = useNavigate();
-
   const handleLogin = () => {
-    if (!name.trim()) {
-      alert("Por favor, ingresa un nombre.");
-      return;
-    }
-    setUser({ name, status, avatar });
-    navigate("/chat");
+    if (name.trim() === "" || status.trim() === "") return;
+    navigate('/chat',
+        {
+            state:{
+                name,
+                status,
+                avatar
+            }
+        }
+    )
   };
 
   return (
-    <div className="login-container">
-      <h2>Iniciar Sesión</h2>
-      <label>Nombre:</label>
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h2>Login</h2>
       <input
         type="text"
+        placeholder="Tu nombre"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Tu nombre"
       />
-
-      <label>Selecciona un avatar:</label>
-      <div className="avatar-list">
-        {avatars.map((img, index) => (
+      <input
+        type="text"
+        placeholder="Tu estado"
+        value={status}
+        onChange={(e) => setStatus(e.target.value)}
+      />
+      <div>
+        {avatars.map((url) => (
           <img
-            key={index}
-            src={img}
-            alt="Avatar"
-            className={avatar === img ? "selected" : ""}
-            onClick={() => setAvatar(img)}
+            key={url}
+            src={url}
+            alt="avatar"
+            style={{ width: 50, cursor: "pointer", border: avatar === url ? "2px solid blue" : "none" }}
+            onClick={() => setAvatar(url)}
           />
         ))}
       </div>
-
-      <button onClick={handleLogin}>Entrar al chat</button>
+      <button onClick={handleLogin}>Ingresar</button>
     </div>
   );
 }

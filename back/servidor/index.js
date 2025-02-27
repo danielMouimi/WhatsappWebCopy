@@ -18,14 +18,31 @@ let userConnected = 0;
 
 app.use(cors());
 app.use(express.json());
+var connectedUsers = [];
 
 io.on('connection', (socket) => {
+
   userConnected++;
   console.log('Hay ' + userConnected + ' usuarios conectados');
+
+  socket.on("nombre", (userData) => {
+    connectedUsers.push({ id: socket.id, ...userData });
+
+    // Enviar la lista completa de usuarios a todos los clientes
+    io.emit("usuariosConectados", connectedUsers);
+  });
+  
 socket.on('disconnect', () => {
+
   userConnected--;
-  io.emit("desconexion", socket.nombre);
   console.log('Hay ' + userConnected + ' usuarios conectados');
+
+  const user = connectedUsers.find((u) => u.id === socket.id);
+  if (user) {
+    connectedUsers = connectedUsers.filter((u) => u.id !== socket.id);
+    io.emit("usuariosConectados", connectedUsers);
+    io.emit("desconexion", user.name);
+  }
 });
 socket.on("mensaje", (datos)=> {
   io.emit("texto",datos);
